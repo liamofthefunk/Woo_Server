@@ -1,5 +1,3 @@
-# final/app.py
-
 import json
 from logging import exception
 import logging
@@ -9,21 +7,7 @@ import pika
 
 app = Flask(__name__)
 
-print("===========================================================")
-print("===========================================================")
-print("===========================================================")
-print()
-print("WEBHOOK LISTENER ONLINE.")
-print("WAITING FOR ORDERS FROM WOOCOMMERCE.")
-print()
-print()
-
-
 @app.route('/', methods=['GET', 'POST'])
-def home(name=None):
-    return render_template('home.html', name=name)
-
-
 def webhook():
     if request.headers['Content-Type'] == 'application/json':
         data = request.json
@@ -40,7 +24,8 @@ def webhook():
             logging.exception('Error!')
 
         return 'OK', 200
-
+    else:
+        return 'Waiting for order'
 
 if __name__ == '__main__':
     app.run()
